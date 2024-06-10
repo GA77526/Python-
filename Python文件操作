@@ -1,0 +1,103 @@
+1 Python文件处理
+有四种不同的打开文件的方法（模式）：
+
+"r"- Read - 默认值。打开一个 文件读取，如果文件不存在则出错
+
+"a"- 追加 - 打开文件 appending，如果文件不存在，则创建文件
+
+"w"- 写入 - 打开文件进行写入， 如果文件不存在，则创建该文件
+
+"x"- Create - 创建指定的文件，返回 如果文件存在，则出错
+
+此外，还可以指定文件应以二进制模式还是文本模式处理
+
+"t"- Text - 默认值。文本模式
+
+"b"- 二进制 - 二进制模式（例如 图像）
+
+
+
+2 Python读取文件
+f=open("text","r")
+print(f.read()) #读取文件内容
+
+print(f.readline()) #读取文件内容的一行
+
+for x in f:
+print(x) #循环读取文件内容
+
+
+
+3 Python文件创建/写入
+ExampleGet your own Python Server
+Open the file "demofile2.txt" and append content to the file:
+
+f = open("demofile2.txt", "a")
+f.write("Now the file has more content!")
+f.close()
+
+#open and read the file after the appending:
+f = open("demofile2.txt", "r")
+print(f.read())
+Example
+Open the file "demofile3.txt" and overwrite the content:
+
+f = open("demofile3.txt", "w")
+f.write("Woops! I have deleted the content!")
+f.close()
+
+#open and read the file after the overwriting:
+f = open("demofile3.txt", "r")
+print(f.read())
+
+
+
+4 Python文件删除(若要删除整个文件夹，请使用以下方法：os.rmdir() 若要删除文件，必须导入 OS 模块，并运行其函数：os.remove())
+import os
+os.remove("text")
+
+
+import os
+if os.path.exists("demofile.txt"):
+  os.remove("demofile.txt")
+else:
+  print("The file does not exist")
+
+import os
+os.rmdir("myfolder")
+
+
+
+5Python爬虫数据导入文件
+
+import requests
+from bs4 import BeautifulSoup
+import csv
+
+# 发送请求并获取网页内容
+url = 'https://www.example.com'
+response = requests.get(url)
+html_content = response.text
+
+# 解析网页内容
+soup = BeautifulSoup(html_content, 'html.parser')
+
+# 提取需要的数据
+data = []
+for item in soup.find_all('div', class_='item'):
+    title = item.find('h2').text
+    price = item.find('span', class_='price').text
+    data.append([title, price])
+
+# 将提取的数据保存在CSV文件中
+with open('data.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Title', 'Price'])
+    for line in data:
+        writer.writerow(line)
+
+print("数据已保存在data.csv文件中")
+
+
+
+
